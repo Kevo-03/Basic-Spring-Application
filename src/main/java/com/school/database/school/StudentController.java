@@ -1,6 +1,8 @@
 package com.school.database.school;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -33,11 +35,15 @@ public class StudentController
     }
 
     @PostMapping
-    public ResponseEntity<Student> newStudent(@RequestBody @Valid Student newStudent, BindingResult bindingResult) 
+    public ResponseEntity<?> newStudent(@RequestBody @Valid Student newStudent, BindingResult bindingResult) 
     {
         if(bindingResult.hasErrors())
         {
-            return ResponseEntity.badRequest().body(null);
+            Map<String,String> errors = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(error ->{
+                errors.put(error.getField(), error.getDefaultMessage());
+            });
+            return ResponseEntity.badRequest().body(errors);
         }
 
         Student savedStudent = service.saveStudent(newStudent);
@@ -52,11 +58,15 @@ public class StudentController
     }
 
     @PutMapping
-    public ResponseEntity<Student> updateStudent(@RequestBody @Valid Student newStudent, BindingResult bindingResult, @PathVariable Long id) 
+    public ResponseEntity<?> updateStudent(@RequestBody @Valid Student newStudent, BindingResult bindingResult, @PathVariable Long id) 
     {
         if (bindingResult.hasErrors()) 
         {
-            return ResponseEntity.badRequest().body(null);
+            Map<String,String> errors = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(error ->{
+                errors.put(error.getField(), error.getDefaultMessage());
+            });
+            return ResponseEntity.badRequest().body(errors);
         }
         Student updatedStudent = service.replaceStudent(newStudent, id);
 
