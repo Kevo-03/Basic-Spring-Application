@@ -57,7 +57,7 @@ public class StudentController
         return service.findStudentById(id);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateStudent(@RequestBody @Valid Student newStudent, BindingResult bindingResult, @PathVariable Long id) 
     {
         if (bindingResult.hasErrors()) 
