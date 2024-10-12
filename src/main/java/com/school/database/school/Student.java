@@ -25,24 +25,31 @@ class Student {
   @Min(18)
   private int age;
 
-  Student() {}
+  public Student() 
+  {
 
-  Student(String name, String major, int age) {
+  }
+
+  public Student(String name, String major, int age) 
+  {
 
     this.name = name;
     this.major = major;
     this.age = age;
   }
 
-  public Long getId() {
+  public Long getId() 
+  {
     return this.id;
   }
 
-  public String getName() {
+  public String getName() 
+  {
     return this.name;
   }
 
-  public String getMajor() {
+  public String getMajor() 
+  {
     return this.major;
   }
 
@@ -56,20 +63,24 @@ class Student {
     this.age = age;
   }
 
-  public void setId(Long id) {
+  public void setId(Long id) 
+  {
     this.id = id;
   }
 
-  public void setName(String name) {
+  public void setName(String name) 
+  {
     this.name = name;
   }
 
-  public void setMajor(String major) {
+  public void setMajor(String major) 
+  {
     this.major = major;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o) 
+  {
 
     if (this == o)
       return true;
@@ -81,12 +92,14 @@ class Student {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode() 
+  {
     return Objects.hash(this.id, this.name, this.major);
   }
 
   @Override
-  public String toString() {
+  public String toString() 
+  {
     return "Student{" + "id=" + this.id + ", name='" + this.name + '\'' + ", role='" + this.major + '\'' + '}';
   }
 }

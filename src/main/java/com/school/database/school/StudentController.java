@@ -29,7 +29,7 @@ public class StudentController
     }
 
     @GetMapping
-    List<Student> all()
+    public List<Student> all()
     {
         return service.getStudents();
     }
@@ -52,7 +52,7 @@ public class StudentController
     }
 
     @GetMapping("/{id}")
-    Student one(@PathVariable Long id)
+    public Student findStudent(@PathVariable Long id)
     {
         return service.findStudentById(id);
     }
@@ -74,7 +74,7 @@ public class StudentController
     }
 
     @DeleteMapping("/{id}")
-    void deleteStudent(@PathVariable Long id) 
+    public void deleteStudent(@PathVariable Long id) 
     {
         service.deleteStudent(id);
     }
