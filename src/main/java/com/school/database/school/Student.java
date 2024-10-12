@@ -59,7 +59,7 @@ class Student {
     this.name = name;
   }
 
-  public void setmajortring(String major) {
+  public void setMajor(String major) {
     this.major = major;
   }
 
