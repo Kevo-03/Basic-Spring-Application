@@ -5,19 +5,24 @@ import java.util.Objects;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 class Student {
 
   private @Id
   @GeneratedValue Long id;
-  //@NotNull
-  //@Size(min=2, max=30)
+  @NotBlank(message = "Name is mandatory")
+  @Size(min=2, max=30,message = "Name must be between 2 and 30 characters")
   private String name;
-  //@NotNull
+  @NotBlank(message = "Major is mandatory")
+  @Size(min = 2, max = 50, message = "Major must be between 2 and 50 characters")
   private String major;
-  //@NotNull
-  //@Min(18)
+  @NotNull
+  @Min(18)
   private int age;
 
   Student() {}
