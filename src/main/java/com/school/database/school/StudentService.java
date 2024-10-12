@@ -26,7 +26,7 @@ public class StudentService
 
     public Student findStudentById(Long id) 
     {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Student not found!"));
+        return repository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
     }
 
     public Student replacStudent(Student newStudent, Long id)
@@ -43,4 +43,9 @@ public class StudentService
         });
     }
 
+    public void deleteStudent(Long id)
+    {
+        repository.deleteById(id);
+    }
+    
 }

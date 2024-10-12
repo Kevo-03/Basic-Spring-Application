@@ -7,40 +7,41 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/students")
 public class StudentController 
 {
-    private final StudentRepository repository;
+    private final StudentService service;
     
-    StudentController(StudentRepository repository)
+    StudentController(StudentService service)
     {
-        this.repository = repository;
+        this.service = service;
     }
 
-    @GetMapping("/students")
+    @GetMapping
     List<Student> all()
     {
-        return repository.findAll();
+        return service.getStudents();
     }
 
-    @PostMapping("/students")
+    @PostMapping
     Student newStudent(@RequestBody Student newStudent) 
     {
-        return repository.save(newStudent);
+        return service.saveStudent(newStudent);
     }
 
-    @GetMapping("/students/{id}")
+    @GetMapping("/{id}")
     Student one(@PathVariable Long id)
     {
-        return repository.findById(id)
-            .orElseThrow(() -> new StudentNotFoundException(id));
+        return service.findStudentById(id);
     }
 
-    @DeleteMapping("/students/{id}")
+    @DeleteMapping("/{id}")
     void deleteStudent(@PathVariable Long id) 
     {
-        repository.deleteById(id);
-  }
+        service.deleteStudent(id);
+    }
 }
