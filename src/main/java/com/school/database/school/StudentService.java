@@ -45,6 +45,10 @@ public class StudentService
 
     public void deleteStudent(Long id)
     {
+        if(!repository.existsById(id))
+        {
+            throw new StudentNotFoundException(id);
+        }
         repository.deleteById(id);
     }
     
