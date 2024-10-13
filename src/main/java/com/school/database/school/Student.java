@@ -86,9 +86,9 @@ class Student {
       return true;
     if (!(o instanceof Student))
       return false;
-    Student employee = (Student) o;
-    return Objects.equals(this.id, employee.id) && Objects.equals(this.name, employee.name)
-        && Objects.equals(this.major, employee.major);
+    Student student = (Student) o;
+    return Objects.equals(this.id, student.id) && Objects.equals(this.name, student.name)
+        && Objects.equals(this.major, student.major);
   }
 
   @Override
