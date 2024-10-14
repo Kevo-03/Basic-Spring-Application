@@ -88,18 +88,18 @@ class Student {
       return false;
     Student student = (Student) o;
     return Objects.equals(this.id, student.id) && Objects.equals(this.name, student.name)
-        && Objects.equals(this.major, student.major);
+        && Objects.equals(this.major, student.major) && Objects.equals(this.age, student.age);
   }
 
   @Override
   public int hashCode() 
   {
-    return Objects.hash(this.id, this.name, this.major);
+    return Objects.hash(this.id, this.name, this.major,this.age);
   }
 
   @Override
   public String toString() 
   {
-    return "Student{" + "id=" + this.id + ", name='" + this.name + '\'' + ", role='" + this.major + '\'' + '}';
+    return "Student{" + "id=" + this.id + ", name='" + this.name + '\'' + ", major='" + this.major + '\'' + ", age='" + this.age + '}';
   }
 }
