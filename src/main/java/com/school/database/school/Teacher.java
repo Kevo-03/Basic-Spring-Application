@@ -82,6 +82,6 @@ public class Teacher
   @Override
   public String toString() 
   {
-    return "Student{" + "id=" + this.id + ", name='" + this.name + '\'' + ", field='" + this.field + '\'' + ", role='" + this.role + '}';
+    return "Teacher{" + "id=" + this.id + ", name='" + this.name + '\'' + ", field='" + this.field + '\'' + ", role='" + this.role + '}';
   }
 }
