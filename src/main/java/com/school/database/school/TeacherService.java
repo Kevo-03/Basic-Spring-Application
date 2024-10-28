@@ -23,5 +23,31 @@ public class TeacherService
         return repository.findById(id).orElseThrow(()-> new TeacherNotFoundException(id));
     }
 
-    public 
+    public Teacher saveTeacher(Teacher newTeacher)
+    {
+        return repository.save(newTeacher);
+    }
+
+    public Teacher replaceTeacher(Teacher newTeacher,Long id)
+    {
+        return repository.findById(id)
+        .map(teacher ->{
+            teacher.setName(newTeacher.getName());
+            teacher.setField(newTeacher.getField());
+            teacher.setRole(newTeacher.getRole());
+            return repository.save(teacher);
+        })
+        .orElseGet(() ->{
+            return repository.save(newTeacher);
+        });
+    }
+
+    public void deleteTeacher(Long id)
+    {
+        if(!repository.existsById(id))
+        {
+            throw new TeacherNotFoundException(id);
+        }
+        repository.deleteById(id);
+    }
 }
