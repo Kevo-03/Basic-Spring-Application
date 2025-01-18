@@ -19,64 +19,35 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/teachers")
-public class TeacherController 
-{
+public class TeacherController {
     private final TeacherService service;
 
-    public TeacherController(TeacherService service)
-    {
+    public TeacherController(TeacherService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<Teacher> getTeachers()
-    {
+    public List<Teacher> getTeachers() {
         return service.getAllTeachers();
     }
 
     @GetMapping("/{id}")
-    public Teacher getTeacherById(@PathVariable Long id)
-    {
+    public Teacher getTeacherById(@PathVariable Long id) {
         return service.getTeacherById(id);
     }
 
     @PostMapping
-    public ResponseEntity<?> saveTeacher(@RequestBody @Valid Teacher newTeacher,BindingResult bindingResult)
-    {
-        if(bindingResult.hasErrors())
-        {
-            Map<String,String> errors = new HashMap<>();
-            bindingResult.getFieldErrors().forEach(error ->{
-                errors.put(error.getField(), error.getDefaultMessage());
-            });
-            return ResponseEntity.badRequest().body(errors);
-        }
-
-        Teacher savedTeacher = service.saveTeacher(newTeacher);
-
-        return ResponseEntity.ok(savedTeacher);
+    public Teacher saveTeacher(@RequestBody @Valid Teacher newTeacher) {
+        return service.saveTeacher(newTeacher);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateTeacher(@RequestBody @Valid Teacher newTeacher,BindingResult bindingResult, @PathVariable Long id)
-    {
-        if(bindingResult.hasErrors())
-        {
-            Map<String,String> errors = new HashMap<>();
-            bindingResult.getFieldErrors().forEach(error ->{
-                errors.put(error.getField(), error.getDefaultMessage());
-            });
-            return ResponseEntity.badRequest().body(errors);
-        }
-
-        Teacher updatedTeacher = service.replaceTeacher(newTeacher, id);
-
-        return ResponseEntity.ok(updatedTeacher);
+    public Teacher updateTeacher(@RequestBody @Valid Teacher newTeacher, @PathVariable Long id) {
+        return service.replaceTeacher(newTeacher, id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTeacher(@PathVariable Long id)
-    {
+    public void deleteTeacher(@PathVariable Long id) {
         service.deleteTeacher(id);
     }
 }
