@@ -1,4 +1,4 @@
-package com.school.database.school;
+package com.school.database.school.exception;
 
 import java.util.HashMap;
 import java.util.Map;

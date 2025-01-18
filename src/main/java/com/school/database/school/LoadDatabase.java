@@ -6,20 +6,25 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.school.database.school.model.Student;
+import com.school.database.school.model.Teacher;
+import com.school.database.school.repository.StudentRepository;
+import com.school.database.school.repository.TeacherRepository;
+
 @Configuration
-public class LoadDatabase 
-{
-    private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
+public class LoadDatabase {
+  private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
   @Bean
   CommandLineRunner initDatabase(StudentRepository studentRepository, TeacherRepository teacherRepository) {
 
     return args -> {
-      log.info("Preloading " + studentRepository.save(new Student("Kivanc Onat Turker", "Computer Science",21)));
-      log.info("Preloading " + studentRepository.save(new Student("Hasan Ali Karaca", "Electric Engineer",21)));
+      log.info("Preloading " + studentRepository.save(new Student("Kivanc Onat Turker", "Computer Science", 21)));
+      log.info("Preloading " + studentRepository.save(new Student("Hasan Ali Karaca", "Electric Engineer", 21)));
 
       log.info("Preloading " + teacherRepository.save(new Teacher("Gurhan Kucuk", "Computer Science", "Professor")));
-      log.info("Preloading " + teacherRepository.save(new Teacher("Tacha Sheriff", "Computer Science", "Associate Professor")));
+      log.info("Preloading "
+          + teacherRepository.save(new Teacher("Tacha Sheriff", "Computer Science", "Associate Professor")));
     };
   }
 }

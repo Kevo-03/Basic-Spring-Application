@@ -1,5 +1,5 @@
 
-package com.school.database.school;
+package com.school.database.school.controller;
 
 import java.util.List;
 
@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.school.database.school.model.Student;
+import com.school.database.school.service.StudentService;
 
 import jakarta.validation.Valid;
 
