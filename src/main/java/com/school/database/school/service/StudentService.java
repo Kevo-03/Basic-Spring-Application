@@ -2,6 +2,7 @@ package com.school.database.school.service;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.school.database.school.exception.StudentNotFoundException;
@@ -11,9 +12,11 @@ import com.school.database.school.repository.StudentRepository;
 @Service
 public class StudentService {
     private final StudentRepository repository;
+    private final PasswordEncoder encoder;
 
-    public StudentService(StudentRepository repository) {
+    public StudentService(StudentRepository repository, PasswordEncoder encoder) {
         this.repository = repository;
+        this.encoder = encoder;
     }
 
     public List<Student> getStudents() {
@@ -22,6 +25,11 @@ public class StudentService {
 
     public Student saveStudent(Student newStudent) {
         return repository.save(newStudent);
+    }
+
+    public Student regStudent(Student student) {
+        student.setPassword(encoder.encode(student.getPassword()));
+        return repository.save(student);
     }
 
     public Student findStudentById(Long id) {
