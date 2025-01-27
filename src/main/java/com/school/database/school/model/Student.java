@@ -97,17 +97,21 @@ public class Student {
       return false;
     Student student = (Student) o;
     return Objects.equals(this.id, student.id) && Objects.equals(this.name, student.name)
-        && Objects.equals(this.major, student.major) && Objects.equals(this.age, student.age);
+        && Objects.equals(this.major, student.major) && Objects.equals(this.age, student.age)
+        && Objects.equals(this.username, student.username) && Objects.equals(this.password, student.password)
+        && Objects.equals(this.email, student.email);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.id, this.name, this.major, this.age);
+    return Objects.hash(this.id, this.username, this.password, this.email, this.name, this.major, this.age);
   }
 
   @Override
   public String toString() {
-    return "Student{" + "id=" + this.id + ", name='" + this.name + '\'' + ", major='" + this.major + '\'' + ", age='"
+    return "Student{" + "id=" + this.id + ",username=" + this.username + ",email=" + this.email + ", name='" + this.name
+        + '\'' + ", major='" + this.major + '\''
+        + ", age='"
         + this.age + '}';
   }
 }
