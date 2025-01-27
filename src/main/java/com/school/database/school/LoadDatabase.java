@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.school.database.school.model.Student;
 import com.school.database.school.model.Teacher;
@@ -16,11 +17,16 @@ public class LoadDatabase {
   private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
   @Bean
-  CommandLineRunner initDatabase(StudentRepository studentRepository, TeacherRepository teacherRepository) {
+  CommandLineRunner initDatabase(StudentRepository studentRepository, TeacherRepository teacherRepository,
+      PasswordEncoder encoder) {
 
     return args -> {
-      log.info("Preloading " + studentRepository.save(new Student("Kivanc Onat Turker", "Computer Science", 21)));
-      log.info("Preloading " + studentRepository.save(new Student("Hasan Ali Karaca", "Electric Engineer", 21)));
+      log.info("Preloading " + studentRepository
+          .save(new Student("kivanc", encoder.encode("kivanc"), "kivanc@mail", "Kivanc Onat Turker", "Computer Science",
+              21)));
+      log.info("Preloading " + studentRepository
+          .save(new Student("hasan", encoder.encode("hasan"), "hasan@mail", "Hasan Ali Karaca", "Electric Engineer",
+              21)));
 
       log.info("Preloading " + teacherRepository.save(new Teacher("Gurhan Kucuk", "Computer Science", "Professor")));
       log.info("Preloading "

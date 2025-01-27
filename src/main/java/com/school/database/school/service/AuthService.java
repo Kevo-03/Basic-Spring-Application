@@ -2,9 +2,11 @@ package com.school.database.school.service;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.stereotype.Service;
 
 import com.school.database.school.model.Student;
 
+@Service
 public class AuthService {
 
     private final AuthenticationManager authenticationManager;
@@ -19,8 +21,7 @@ public class AuthService {
         return studentService.regStudent(student);
     }
 
-    public String login(String username, String password) {
+    public void login(String username, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        return "Login Successful";
     }
 }

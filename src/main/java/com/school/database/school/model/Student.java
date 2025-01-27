@@ -22,11 +22,11 @@ public class Student {
   private @Id @GeneratedValue Long id;
   @Column(nullable = false, unique = true)
   @NotBlank(message = "Username is mandatory")
-  @Size(min = 6, max = 20, message = "Username must be between 6 and 20 characters")
+  @Size(min = 4, max = 20, message = "Username must be between 4 and 20 characters")
   private String username;
   @Column(nullable = false)
   @NotBlank(message = "Password is mandatory")
-  @Size(min = 8, message = "Password must be at least 8 characters")
+  @Size(min = 4, message = "Password must be at least 4 characters")
   private String password;
   @Column(nullable = false, unique = true)
   @NotBlank(message = "Email is mandatory")
@@ -49,8 +49,11 @@ public class Student {
 
   }
 
-  public Student(String name, String major, int age) {
+  public Student(String username, String password, String email, String name, String major, int age) {
 
+    this.username = username;
+    this.password = password;
+    this.email = email;
     this.name = name;
     this.major = major;
     this.age = age;
