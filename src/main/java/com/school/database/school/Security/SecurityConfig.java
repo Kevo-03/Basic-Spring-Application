@@ -10,6 +10,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.school.database.school.service.StudentDetailsService;
 
@@ -17,10 +18,13 @@ import com.school.database.school.service.StudentDetailsService;
 public class SecurityConfig {
     private final StudentDetailsService studentDetailsService;
     private final JwtAuthEntryPoint entryPoint;
+    private final JwtUtils jwtUtils;
 
-    public SecurityConfig(StudentDetailsService studentDetailsService, JwtAuthEntryPoint entryPoint) {
+    public SecurityConfig(StudentDetailsService studentDetailsService, JwtAuthEntryPoint entryPoint,
+            JwtUtils jwtUtils) {
         this.studentDetailsService = studentDetailsService;
         this.entryPoint = entryPoint;
+        this.jwtUtils = jwtUtils;
     }
 
     @Bean
@@ -31,7 +35,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
                         .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults());
+                .addFilterBefore(null, null)
+                .httpBasic(Customizer.withDefaults())
+                .addFilterBefore(new JwtAuthFilter(jwtUtils, studentDetailsService),
+                        UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
