@@ -35,9 +35,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
                         .anyRequest().authenticated())
-                .addFilterBefore(null, null)
                 .httpBasic(Customizer.withDefaults())
-                .addFilterBefore(new JwtAuthFilter(jwtUtils, studentDetailsService),
+                .addFilterBefore(JwtAuthFilter(jwtUtils, studentDetailsService),
                         UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
@@ -50,5 +49,10 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
+    }
+
+    @Bean
+    JwtAuthFilter JwtAuthFilter(JwtUtils jwtUtils, StudentDetailsService studentDetailsService) {
+        return new JwtAuthFilter(jwtUtils, studentDetailsService);
     }
 }

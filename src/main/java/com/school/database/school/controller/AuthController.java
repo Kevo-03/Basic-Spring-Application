@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.school.DTO.AuthResponse;
 import com.school.DTO.LoginRequest;
 import com.school.database.school.model.Student;
 import com.school.database.school.service.AuthService;
@@ -28,7 +29,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        authService.login(loginRequest.getUsername(), loginRequest.getPassword());
-        return ResponseEntity.ok("Login Successful");
+        String token = authService.login(loginRequest.getUsername(), loginRequest.getPassword());
+        return ResponseEntity.ok(token);
     }
 }
