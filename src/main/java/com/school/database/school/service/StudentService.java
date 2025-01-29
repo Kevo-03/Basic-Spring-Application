@@ -39,6 +39,9 @@ public class StudentService {
     public Student replaceStudent(Student newStudent, Long id) {
         return repository.findById(id)
                 .map(student -> {
+                    student.setUsername(newStudent.getUsername());
+                    student.setPassword(newStudent.getPassword());
+                    student.setEmail(newStudent.getEmail());
                     student.setName(newStudent.getName());
                     student.setAge(newStudent.getAge());
                     student.setMajor(newStudent.getMajor());
