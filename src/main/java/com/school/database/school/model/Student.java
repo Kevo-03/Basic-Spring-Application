@@ -50,13 +50,12 @@ public class Student {
   }
 
   public Student(String username, String password, String email, String name, String major, int age) {
-
-    this.username = username;
-    this.password = password;
-    this.email = email;
-    this.name = name;
-    this.major = major;
-    this.age = age;
+    setUsername(username);
+    setPassword(password);
+    setEmail(email);
+    setName(name);
+    setMajor(major);
+    setAge(age);
   }
 
   @Override
