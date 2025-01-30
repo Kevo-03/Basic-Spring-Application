@@ -12,28 +12,32 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.school.database.school.service.StudentDetailsService;
+import com.school.database.school.service.CustomDetailsService;
 
 @Configuration
 public class SecurityConfig {
-    private final StudentDetailsService studentDetailsService;
+    private final CustomDetailsService customDetailsService;
     private final JwtAuthEntryPoint entryPoint;
     private final JwtUtils jwtUtils;
+    private final JwtAuthFilter jwtAuthFilter;
 
-    public SecurityConfig(StudentDetailsService studentDetailsService, JwtAuthEntryPoint entryPoint,
-            JwtUtils jwtUtils) {
-        this.studentDetailsService = studentDetailsService;
+    public SecurityConfig(CustomDetailsService customDetailsService, JwtAuthEntryPoint entryPoint,
+            JwtUtils jwtUtils, JwtAuthFilter jwtAuthFilter) {
+        this.customDetailsService = customDetailsService;
         this.entryPoint = entryPoint;
         this.jwtUtils = jwtUtils;
+        this.jwtAuthFilter = jwtAuthFilter;
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(entryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
+                        .requestMatchers("/students/**").hasRole("STUDENT")
+                        .requestMatchers("/teachers/**").hasRole("TEACHER")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(jwtAuthFilter,
@@ -51,8 +55,4 @@ public class SecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 
-    @Bean
-    JwtAuthFilter jwtAuthFilter(JwtUtils jwtUtils, StudentDetailsService studentDetailsService) {
-        return new JwtAuthFilter(jwtUtils, studentDetailsService);
-    }
 }
