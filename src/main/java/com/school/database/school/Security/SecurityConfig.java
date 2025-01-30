@@ -28,7 +28,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(entryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
-                .addFilterBefore(JwtAuthFilter(jwtUtils, studentDetailsService),
+                .addFilterBefore(jwtAuthFilter,
                         UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
@@ -52,7 +52,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    JwtAuthFilter JwtAuthFilter(JwtUtils jwtUtils, StudentDetailsService studentDetailsService) {
+    JwtAuthFilter jwtAuthFilter(JwtUtils jwtUtils, StudentDetailsService studentDetailsService) {
         return new JwtAuthFilter(jwtUtils, studentDetailsService);
     }
 }
