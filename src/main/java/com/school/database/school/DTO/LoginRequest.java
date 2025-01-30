@@ -1,4 +1,4 @@
-package com.school.DTO;
+package com.school.database.school.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 
