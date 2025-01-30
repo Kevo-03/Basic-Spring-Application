@@ -28,9 +28,11 @@ public class LoadDatabase {
           .save(new Student("hasan", encoder.encode("hasan"), "hasan@mail", "Hasan Ali Karaca", "Electric Engineer",
               21)));
 
-      log.info("Preloading " + teacherRepository.save(new Teacher("Gurhan Kucuk", "Computer Science", "Professor")));
+      log.info("Preloading " + teacherRepository.save(new Teacher("gurhan", encoder.encode("gurhan"), "gurhan@mail",
+          "Gurhan Kucuk", "Computer Science", "Professor")));
       log.info("Preloading "
-          + teacherRepository.save(new Teacher("Tacha Sheriff", "Computer Science", "Associate Professor")));
+          + teacherRepository.save(new Teacher("tacha", encoder.encode("tacha"), "tacha@mail", "Tacha Sheriff",
+              "Computer Science", "Associate Professor")));
     };
   }
 }

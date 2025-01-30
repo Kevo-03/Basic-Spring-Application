@@ -59,38 +59,6 @@ public class Student {
     this.age = age;
   }
 
-  public Long getId() {
-    return this.id;
-  }
-
-  public String getName() {
-    return this.name;
-  }
-
-  public String getMajor() {
-    return this.major;
-  }
-
-  public int getAge() {
-    return this.age;
-  }
-
-  public void setAge(int age) {
-    this.age = age;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setMajor(String major) {
-    this.major = major;
-  }
-
   @Override
   public boolean equals(Object o) {
 
