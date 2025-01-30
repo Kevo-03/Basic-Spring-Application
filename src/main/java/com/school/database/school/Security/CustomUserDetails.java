@@ -19,31 +19,22 @@ public class CustomUserDetails implements UserDetails {
     private String role;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public CustomUserDetails(Long id, String username, String email, String password, String role) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
+    public CustomUserDetails(Student student) {
+        this.id = student.getId();
+        this.username = student.getUsername();
+        this.email = student.getEmail();
+        this.password = student.getPassword();
+        this.role = "ROLE_STUDENT";
+        this.authorities = List.of(new SimpleGrantedAuthority(role));
     }
 
-    public static CustomUserDetails build(Student student) {
-        return new CustomUserDetails(
-                student.getId(),
-                student.getUsername(),
-                student.getEmail(),
-                student.getPassword(),
-                "STUDENT");
-    }
-
-    public static CustomUserDetails build(Teacher teacher) {
-        return new CustomUserDetails(
-                teacher.getId(),
-                teacher.getUsername(),
-                teacher.getEmail(),
-                teacher.getPassword(),
-                "TEACHER");
+    public CustomUserDetails(Teacher teacher) {
+        this.id = teacher.getId();
+        this.username = teacher.getUsername();
+        this.email = teacher.getEmail();
+        this.password = teacher.getPassword();
+        this.role = "ROLE_TEACHER";
+        this.authorities = List.of(new SimpleGrantedAuthority(role));
     }
 
     public Long getId() {

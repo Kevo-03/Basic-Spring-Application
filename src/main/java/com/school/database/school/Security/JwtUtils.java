@@ -21,9 +21,14 @@ public class JwtUtils {
     }
 
     public String generateToken(Authentication auth) {
-        String username = auth.getName();
+        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+        return generateToken(userDetails);
+    }
+
+    public String generateToken(CustomUserDetails userDetails) {
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(userDetails.getUsername())
+                .claim("role", userDetails.getRole())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -37,6 +42,15 @@ public class JwtUtils {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    public String extractRole(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("role", String.class);
     }
 
     public boolean validateToken(String token) {
