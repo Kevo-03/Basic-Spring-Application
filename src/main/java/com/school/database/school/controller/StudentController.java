@@ -3,6 +3,8 @@ package com.school.database.school.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +41,13 @@ public class StudentController {
     @GetMapping("/{id}")
     public Student findStudent(@PathVariable Long id) {
         return service.findStudentById(id);
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<Student> getProfile(Authentication authentication) {
+        String username = authentication.getName();
+        Student student = service.findStudentByUsername(username);
+        return ResponseEntity.ok(student);
     }
 
     @PutMapping("/{id}")

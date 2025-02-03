@@ -36,6 +36,10 @@ public class StudentService {
         return repository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
     }
 
+    public Student findStudentByUsername(String username) {
+        return repository.findByUsername(username).orElseThrow(() -> new StudentNotFoundException(username));
+    }
+
     public Student replaceStudent(Student newStudent, Long id) {
         return repository.findById(id)
                 .map(student -> {
