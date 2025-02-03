@@ -23,6 +23,10 @@ public class TeacherService {
         return repository.findById(id).orElseThrow(() -> new TeacherNotFoundException(id));
     }
 
+    public Teacher getTeacherByUsername(String username) {
+        return repository.findByUsername(username).orElseThrow(() -> new TeacherNotFoundException(username));
+    }
+
     public Teacher saveTeacher(Teacher newTeacher) {
         return repository.save(newTeacher);
     }
