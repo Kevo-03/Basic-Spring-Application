@@ -11,6 +11,8 @@ import com.school.database.school.DTO.LoginRequest;
 import com.school.database.school.model.Student;
 import com.school.database.school.service.AuthService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -22,7 +24,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Student> register(@RequestBody Student student) {
+    public ResponseEntity<Student> register(@RequestBody @Valid Student student) {
         Student registeredStudent = authService.register(student);
         return ResponseEntity.ok(registeredStudent);
     }

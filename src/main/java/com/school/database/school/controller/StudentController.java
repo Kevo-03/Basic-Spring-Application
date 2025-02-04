@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.school.database.school.DTO.StudentProfile;
+import com.school.database.school.enums.Grade;
 import com.school.database.school.model.Student;
 import com.school.database.school.service.StudentService;
 
@@ -44,10 +46,15 @@ public class StudentController {
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<Student> getProfile(Authentication authentication) {
+    public ResponseEntity<StudentProfile> getProfile(Authentication authentication) {
         String username = authentication.getName();
         Student student = service.findStudentByUsername(username);
-        return ResponseEntity.ok(student);
+        String name = student.getName();
+        String email = student.getEmail();
+        String major = student.getMajor();
+        Grade grade = student.getGrade();
+        StudentProfile profile = new StudentProfile(name, username, major, email, grade);
+        return ResponseEntity.ok(profile);
     }
 
     @PutMapping("/{id}")
